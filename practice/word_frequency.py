@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
@@ -5,17 +6,19 @@ import pandas as pd
 import sys,os
 
 
-title = raw_input("enter book title: ") + ".txt"
+title = raw_input("enter book title and directory: ") + ".txt"
 
 # title = 'test1.txt'
 
 print(title)
 
 words = {}
-with open('English/' + title, 'r') as f:
+word_count = 0
+with open(title, 'r') as f:
         for line in f:
             splitLine = line.split()
             for word in splitLine:
+                word_count += 1
                 word = (word.lower().replace('.', '').replace(',','').replace("'s",""))
                 try:
                     words[word] += 1
@@ -24,11 +27,14 @@ with open('English/' + title, 'r') as f:
 
 #sortWords = sorted(words.items(), key=lambda value: value[1])     
 sortedWords = sorted([(value,key) for (key,value) in words.items()], reverse=True)
-
-target = open('hist' + title, 'w')
+print(word_count)
+target = open('words_in_' + title, 'w')
+target.write("word, count, percent, cum\n")
+cum = 0
 for entry in sortedWords:
-    
-    line = (str(entry[1]) + " " +  str(entry[0]))
+    word_percent = entry[0]/word_count * 100
+    cum += word_percent
+    line = (str(entry[1]) + ", " +  str(entry[0]) + ", %.2f" % word_percent + ", %.2f" % cum )
     # print(line)
     target.write(line)
     target.write("\n")
