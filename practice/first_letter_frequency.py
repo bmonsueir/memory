@@ -3,7 +3,8 @@ import sys,os
 
 
 direct = raw_input("enter directory: ") 
-title = direct + "/words.txt" 
+file_name = raw_input("enter file: ")
+title = direct + "/" + file_name + ".txt" 
 
 print(title)
 
@@ -25,7 +26,7 @@ sortedWords = sorted([(value,key) for (key,value) in letters.items()], reverse=T
 print(word_count)
 print(letters)
 print(sortedWords)
-target = open(direct + '/first_letter_frequency.txt', 'w')
+target = open(direct + '/first_letter_' + file_name + '.txt', 'w')
 target.write("word, count, percent, cum\n")
 cum = 0
 for entry in sortedWords:
