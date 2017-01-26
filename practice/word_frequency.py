@@ -18,9 +18,9 @@ with open(file_to_open, 'r') as f:
             splitLine = line.split()
             for word in splitLine:
                 word_count += 1
-                # pattern = '/[a-z]+'
+                # pattern = 'r"[a-zA-Z]+"g'
                 # word = re.match(pattern, word)
-                word = re.sub(r"[<>?`~.,&%$#@!*+='-1234567890]+", '', word)
+                word = re.sub(r"[<>?`~.,&%$#@!*+='-1234567890(){}\[\]]+", '', word)
                 word = word.lower()
                 try:
                     words[word] += 1
